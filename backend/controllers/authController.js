@@ -53,6 +53,54 @@ const registerUser = async (req, res, next) => {
     }
 };
 
+// Log in an existing HustleHub+ user.
+const loginUser = async (req, res, next) => {
+    try {
+        const { email, password } = req.validatedLogin;
+
+        // Retrieve the user and explicitly include the password hash.
+        const user = await User.findOne({ email }).select("+passwordHash");
+
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password."
+            });
+        }
+
+        // Compare the entered password with the stored password hash.
+        const passwordMatches = await bcrypt.compare(
+            password,
+            user.passwordHash
+        );
+
+        if (!passwordMatches) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid email or password."
+            });
+        }
+
+        // Generate a new JWT after successful login.
+        const token = generateToken(user);
+
+        return res.status(200).json({
+            success: true,
+            message: "Login successful.",
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser
 };
