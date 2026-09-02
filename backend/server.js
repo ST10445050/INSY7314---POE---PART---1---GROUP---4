@@ -3,6 +3,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const connectDatabase = require("./config/database");
 
 const app = express();
 
@@ -30,6 +31,18 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-    console.log(`HustleHub+ API is running on port ${PORT}`);
-});
+// Connect to MongoDB before starting the API server.
+const startServer = async () => {
+    try {
+        await connectDatabase();
+
+        app.listen(PORT, () => {
+            console.log(`HustleHub+ API is running on port ${PORT}`);
+        });
+    } catch (error) {
+        console.error("Application startup failed:", error.message);
+        process.exit(1);
+    }
+};
+
+startServer();
