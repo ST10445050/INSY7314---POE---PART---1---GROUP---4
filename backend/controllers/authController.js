@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const User = require("../models/User");
+const generateToken = require("../utils/generateToken");
 
 // Register a new HustleHub+ user.
 const registerUser = async (req, res, next) => {
@@ -33,9 +34,13 @@ const registerUser = async (req, res, next) => {
             role: "client"
         });
 
+        // Generate a JWT after successful registration.
+        const token = generateToken(user);
+
         return res.status(201).json({
             success: true,
             message: "User registered successfully.",
+            token,
             user: {
                 id: user._id,
                 name: user.name,
