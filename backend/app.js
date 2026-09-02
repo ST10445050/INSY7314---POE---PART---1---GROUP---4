@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -16,6 +17,9 @@ app.get("/api/health", (req, res) => {
         message: "HustleHub+ API is running"
     });
 });
+
+// Authentication routes.
+app.use("/auth", authRoutes);
 
 // Handle requests made to routes that do not exist.
 app.use((req, res) => {
