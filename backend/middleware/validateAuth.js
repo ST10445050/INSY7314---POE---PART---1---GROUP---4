@@ -2,7 +2,7 @@
 const validateRegistration = (req, res, next) => {
     const body = req.body;
 
-    // Reject requests that do not contain a JSON body.
+    // Reject requests that do not contain registration information.
     if (!body || Object.keys(body).length === 0) {
         return res.status(400).json({
             success: false,
@@ -10,9 +10,26 @@ const validateRegistration = (req, res, next) => {
         });
     }
 
+    // Only these fields are permitted during public registration.
+    const allowedFields = ["name", "email", "password", "role"];
+    const receivedFields = Object.keys(body);
+
+    // Reject unexpected fields so unsafe or unauthorised values are not processed.
+    const unexpectedFields = receivedFields.filter(
+        field => !allowedFields.includes(field)
+    );
+
+    if (unexpectedFields.length > 0) {
+        return res.status(400).json({
+            success: false,
+            message: "Registration contains unsupported fields."
+        });
+    }
+
     const { name, email, password, role } = body;
 
-    // Ensure the main registration fields contain text values.
+    // Ensure all required registration fields contain text values.
+    // This also prevents objects or arrays from being processed as credentials.
     if (
         typeof name !== "string" ||
         typeof email !== "string" ||
@@ -25,7 +42,7 @@ const validateRegistration = (req, res, next) => {
         });
     }
 
-    // Remove unnecessary spaces and normalise values used for validation.
+    // Remove unnecessary spaces and normalise values before validation.
     const cleanedName = name.trim();
     const cleanedEmail = email.trim().toLowerCase();
     const cleanedRole = role.trim().toLowerCase();
@@ -38,7 +55,7 @@ const validateRegistration = (req, res, next) => {
         });
     }
 
-    // Keep names within the same limits enforced by the User model.
+    // Keep names within the limits enforced by the User model.
     if (cleanedName.length < 2 || cleanedName.length > 100) {
         return res.status(400).json({
             success: false,
@@ -70,7 +87,7 @@ const validateRegistration = (req, res, next) => {
     const hasNumber = /[0-9]/.test(password);
     const hasSpecialCharacter = /[^A-Za-z0-9]/.test(password);
 
-    // Reject passwords that do not satisfy all required security rules.
+    // Reject passwords that do not satisfy all security requirements.
     if (
         !hasUppercase ||
         !hasLowercase ||
@@ -84,7 +101,7 @@ const validateRegistration = (req, res, next) => {
         });
     }
 
-    // Public registration may create clients or freelancers only.
+    // Public registration may create client or freelancer accounts only.
     const allowedRegistrationRoles = ["client", "freelancer"];
 
     if (!allowedRegistrationRoles.includes(cleanedRole)) {
@@ -119,9 +136,25 @@ const validateLogin = (req, res, next) => {
         });
     }
 
+    // Login requests may only contain an email address and password.
+    const allowedFields = ["email", "password"];
+    const receivedFields = Object.keys(body);
+
+    // Reject unexpected fields before any authentication processing occurs.
+    const unexpectedFields = receivedFields.filter(
+        field => !allowedFields.includes(field)
+    );
+
+    if (unexpectedFields.length > 0) {
+        return res.status(400).json({
+            success: false,
+            message: "Login contains unsupported fields."
+        });
+    }
+
     const { email, password } = body;
 
-    // Ensure the login fields contain text values.
+    // Ensure login credentials contain text rather than objects or arrays.
     if (
         typeof email !== "string" ||
         typeof password !== "string"
@@ -132,7 +165,7 @@ const validateLogin = (req, res, next) => {
         });
     }
 
-    // Normalise the email so database lookups are consistent.
+    // Normalise the email so database lookups remain consistent.
     const cleanedEmail = email.trim().toLowerCase();
 
     // Reject empty credentials after the email has been cleaned.
@@ -153,7 +186,7 @@ const validateLogin = (req, res, next) => {
         });
     }
 
-    // Store cleaned credentials for the login controller.
+    // Store only cleaned login values for the controller.
     req.validatedLogin = {
         email: cleanedEmail,
         password
@@ -164,7 +197,7 @@ const validateLogin = (req, res, next) => {
 };
 
 
-// Export both authentication validation functions for use in auth routes.
+// Export authentication validation functions for use in auth routes.
 module.exports = {
     validateRegistration,
     validateLogin
