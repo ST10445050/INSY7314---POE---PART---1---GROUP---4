@@ -271,6 +271,12 @@ MongoDB connection successful
 HustleHub+ API is running securely on https://localhost:3000
 ```
 
+## 🎥 Demo Video
+
+A demonstration of the application can be viewed on YouTube using the link below:
+
+[▶️ Watch the Demo Video](https://youtu.be/IL6yVHtg6z0)
+
 ## 🏁 Conclusion
 
 HustleHub+ Part 1 establishes the secure backend foundation of the freelance marketplace.
