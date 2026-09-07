@@ -114,7 +114,6 @@ select: false
 ```
 
 This reduces unnecessary exposure of password hashes.
-
 ## 🎟️ Token-Based Authentication
 
 HustleHub+ uses **JSON Web Tokens (JWT)** to identify authenticated users.
