@@ -79,6 +79,17 @@ The HustleHub+ backend is organised into separate components so that each file h
 
 This modular structure improves maintainability and keeps routing, authentication, validation, database access and error handling clearly separated.
 
+## 🛡️ Security Decisions
+
+The following security decisions were made for HustleHub+ Part 1:
+
+- **bcrypt** is used so passwords are never stored in plain text.
+- **JWT authentication** is used to identify authenticated users and protect API routes.
+- **Input validation** prevents invalid and malicious values from being processed.
+- **Secure error handling** prevents internal system details from being exposed.
+- **HTTPS** encrypts credentials and authentication tokens during communication.
+- **Environment variables** are used to keep sensitive configuration values out of the source code.
+
 ## 🔒 Password Hashing
 
 HustleHub+ never stores user passwords in plain text.
