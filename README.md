@@ -79,8 +79,6 @@ The HustleHub+ backend is organised into separate components so that each file h
 
 This modular structure improves maintainability and keeps routing, authentication, validation, database access and error handling clearly separated.
 
-```
-
 ## 🔒 Password Hashing
 
 HustleHub+ never stores user passwords in plain text.
