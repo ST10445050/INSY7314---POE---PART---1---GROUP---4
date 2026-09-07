@@ -1,0 +1,32 @@
+# 🚀 HustleHub+
+
+## 📘 INFORMATION SYSTEMS 3D — INSY7314
+### Portfolio of Evidence (POE) — Part 1
+### 📅 Date: 7 September 2026
+
+---
+
+## 👥 Team Information
+
+Team Name: NextGen CodeCrafters
+
+### 👨‍💻 Developers
+
+- Keona Mackan (ST10445050)
+- Teah Andrew (ST10440926)
+- Ethan Govender (ST10250993)
+- Kiara Israel (ST10277747)
+
+---
+
+## 💻 Development Environment
+
+- IDE: Visual Studio Code
+- Backend Runtime: Node.js
+- Backend Framework: Express.js
+- Database: MongoDB
+- Database ODM: Mongoose
+- API Testing: Postman
+- Version Control: Git
+- Repository Hosting: GitHub
+- Security: bcrypt, JWT, HTTPS / SSL
