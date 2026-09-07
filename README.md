@@ -36,8 +36,6 @@ For Part 1, public registration allows users to register as either a **client** 
 
 ## 📁 Backend Structure
 
-The HustleHub+ backend uses a modular structure to separate different responsibilities.
-
 ```text
 backend/
 ├── config/
@@ -60,6 +58,7 @@ backend/
 ├── .gitignore
 ├── package.json
 └── package-lock.json
+```
 
 ## 📁 Backend Components
 
@@ -67,7 +66,7 @@ The HustleHub+ backend is organised into separate components so that each file h
 
 | 📄 Component | 🛠️ Responsibility |
 |---|---|
-| `config/database.js` | Connects the HustleHub+ backend to MongoDB using Mongoose. |
+| `config/database.js` | Connects the backend to MongoDB using Mongoose. |
 | `controllers/authController.js` | Handles user registration, login, password hashing, password verification and JWT generation. |
 | `middleware/validateAuth.js` | Validates, cleans and normalises registration and login requests before they are processed. |
 | `middleware/authenticateToken.js` | Verifies JWT authentication tokens before users can access protected API routes. |
@@ -79,6 +78,8 @@ The HustleHub+ backend is organised into separate components so that each file h
 | `server.js` | Connects to MongoDB and starts the HustleHub+ API securely over HTTPS. |
 
 This modular structure improves maintainability and keeps routing, authentication, validation, database access and error handling clearly separated.
+
+```
 
 ## 🔒 Password Hashing
 
