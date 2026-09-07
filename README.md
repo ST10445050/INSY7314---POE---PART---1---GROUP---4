@@ -63,18 +63,20 @@ backend/
 
 ## 📁 Backend Components
 
-| Component | Responsibility |
+The HustleHub+ backend is organised into separate components so that each file has a clear responsibility.
+
+| 📄 Component | 🛠️ Responsibility |
 |---|---|
-| 📂 `config/database.js` | Connects the backend to MongoDB using Mongoose. |
-| 🎮 `controllers/authController.js` | Handles registration, login, password hashing, password verification and JWT generation. |
-| ✅ `middleware/validateAuth.js` | Validates and cleans registration and login requests before processing. |
-| 🎟️ `middleware/authenticateToken.js` | Verifies JWTs before protected routes are accessed. |
-| ⚠️ `middleware/errorHandler.js` | Handles unexpected errors safely without exposing sensitive information. |
-| 👤 `models/User.js` | Defines the MongoDB user structure. |
-| 🔗 `routes/authRoutes.js` | Defines authentication endpoints and connects them to middleware and controllers. |
-| 🔑 `utils/generateToken.js` | Generates signed JWT authentication tokens. |
-| ⚙️ `app.js` | Configures Express middleware, routes and error handling. |
-| 🔐 `server.js` | Connects to MongoDB and starts the HTTPS server. |
+| `config/database.js` | Connects the HustleHub+ backend to MongoDB using Mongoose. |
+| `controllers/authController.js` | Handles user registration, login, password hashing, password verification and JWT generation. |
+| `middleware/validateAuth.js` | Validates, cleans and normalises registration and login requests before they are processed. |
+| `middleware/authenticateToken.js` | Verifies JWT authentication tokens before users can access protected API routes. |
+| `middleware/errorHandler.js` | Handles application errors securely without exposing sensitive internal information. |
+| `models/User.js` | Defines the structure and validation rules for user information stored in MongoDB. |
+| `routes/authRoutes.js` | Defines authentication endpoints and connects routes to the required middleware and controllers. |
+| `utils/generateToken.js` | Generates signed JSON Web Tokens for authenticated users. |
+| `app.js` | Configures the Express application, middleware, routes, 404 handling and central error handling. |
+| `server.js` | Connects to MongoDB and starts the HustleHub+ API securely over HTTPS. |
 
 This modular structure improves maintainability and keeps routing, authentication, validation, database access and error handling clearly separated.
 
